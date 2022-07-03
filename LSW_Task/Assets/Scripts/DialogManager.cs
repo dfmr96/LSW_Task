@@ -1,17 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+
 
 public class DialogManager : MonoBehaviour
 {
     [SerializeField] GameObject dialogBox;
     [SerializeField] TMP_Text dialogText;
-    [SerializeField] bool dialogActive;
+    public bool dialogActive; //??
 
     public string[] dialogLines;
     public int currentDialogLine;
-    private PlayerController playerController;
+    public PlayerController playerController;
 
     void Start()
     {
@@ -20,37 +19,32 @@ public class DialogManager : MonoBehaviour
 
     void Update()
     {
-        if (dialogActive && Input.GetKeyDown(KeyCode.Space)) //If dialog is active and playyer push a key, next dialog line
+
+        if (playerController.playerTalking)
         {
-            currentDialogLine++;
+            dialogText.text = dialogLines[currentDialogLine]; //Change dialog text in placeholder 
         }
 
-        if (currentDialogLine >= dialogLines.Length) //if dialog dont have more lines, hide dialogBox. Reset lines
-        {
-            HideDialog();
-        }
-        else
-        {
-            dialogText.text = dialogLines[currentDialogLine]; //Change dialog text in placeholder text
-
-        }
     }
 
     public void ShowDialog(string[] lines) //Show dialog method with dialog lines as array
     {
-        dialogActive = true;
+
+        playerController.playerTalking = true;
         dialogBox.SetActive(true);
-        currentDialogLine = 0;
+        dialogActive = true;
         dialogLines = lines;
-        //playerController.playerTalking = true; //TODO Player talking to avoid movement while talking
+
+        //TODO Player talking to avoid movement while talking
     }
 
     public void HideDialog()
     {
-        dialogActive = false;
         dialogBox.SetActive(false);
-        currentDialogLine = 0;
-        //playerController.playerTalking = false; //TODO Player talking to avoid movement while talking
+        dialogActive = false;
+        playerController.playerTalking = false;
+        UnityEngine.Debug.Log("Player talking = false, Hide Dialog");
+        //TODO Player talking to avoid movement while talking
     }
 }
 
