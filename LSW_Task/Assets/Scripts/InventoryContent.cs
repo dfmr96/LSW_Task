@@ -11,6 +11,7 @@ public class InventoryContent : MonoBehaviour
     [SerializeField] GameObject content;
     [SerializeField] GameObject firstChild;
     [SerializeField] List<GameObject> children;
+    public SpriteRenderer equippedShirt, equippedPants, equippedShoes;
 
     private void Start()
     {

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5031192235520179682}
   - component: {fileID: -7008546727221873269}
   - component: {fileID: 4448101776223926870}
+  - component: {fileID: 7491105691639280208}
   m_Layer: 5
   m_Name: InventoryBox
   m_TagString: Untagged
@@ -96,6 +97,7 @@ MonoBehaviour:
   itemName: {fileID: 4183907377744730216}
   itemPrice: {fileID: 6853791269960240796}
   image: {fileID: 1555571328772841825}
+  inventoryContent: {fileID: 0}
 --- !u!114 &4448101776223926870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,6 +142,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7491105691639280208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3330900841081858514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &3930305216211553748
 GameObject:
   m_ObjectHideFlags: 0

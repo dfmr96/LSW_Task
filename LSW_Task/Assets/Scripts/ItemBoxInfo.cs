@@ -1,6 +1,4 @@
 using TMPro;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -15,8 +13,9 @@ public class ItemBoxInfo : MonoBehaviour
     [SerializeField] GameObject itemInstance;
     [SerializeField] GameObject inventoryContent;
     [SerializeField] BuyItemsScroll sellerPool;
-    [SerializeField] GameObject buyScreen, sellScreen;
- 
+    [SerializeField] GameObject buyScreen, sellScreen, notEnoughtMoneyScreen;
+    [SerializeField] GameObject UI;
+
 
     private void Start()
     {
@@ -40,23 +39,25 @@ public class ItemBoxInfo : MonoBehaviour
         sprite = itemInfo.sprite;
         image.sprite = sprite;
     }
-    
+
     public void CopyOrEraseItem()
     {
         if (buyScreen.activeInHierarchy)
         {
-            inventoryContent.GetComponent<InventoryContent>().inventoryPool.Add(this.itemInfo);
-        } else
+            if (CurrencyManager.sharedInstance.dollars >= itemInfo.itemPrice)
+            {
+                CurrencyManager.sharedInstance.dollars -= itemInfo.itemPrice;
+                inventoryContent.GetComponent<InventoryContent>().inventoryPool.Add(this.itemInfo);
+            } else
+            {
+                UI = GameObject.FindGameObjectWithTag("UIScreen");
+                Instantiate(notEnoughtMoneyScreen, UI.transform);
+            }
+        }
+        else
         {
             inventoryContent.GetComponent<InventoryContent>().inventoryPool.Remove(this.itemInfo);
             sellScreen.GetComponent<SellitemsScroll>().CreateContent();
         }
     }
-    public void AddItemToInventoryList()
-    {
-    }
-    public void RemoveItemFromInventoryList()
-    {
-    }
-
 }
