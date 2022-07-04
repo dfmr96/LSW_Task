@@ -6,20 +6,11 @@ public class BuyItemsScroll : MonoBehaviour
 {
     [SerializeField] GameObject itemBoxPrefab;
     [SerializeField] GameObject[] itemPrefab;
-    [SerializeField] GameObject parentGO;
-  //  GameObject itemToBuy;
+    [SerializeField] GameObject content;
     [SerializeField] ItemInfo[] itemInfo;
-    [SerializeField] ScrollRectPosition scrollSelector;
     public GameObject firstChild;
-    [SerializeField] GameObject scrollContent;
     public bool objectsCreated = false;
 
-
-
-    private void Start()
-    {
-        scrollSelector = GetComponentInChildren<ScrollRectPosition>();
-    }
     private void Update()
     {
         if (this.gameObject.activeInHierarchy == true && Input.GetKeyDown(KeyCode.Escape))
@@ -42,7 +33,7 @@ public class BuyItemsScroll : MonoBehaviour
         {
             var itemBoxGO = Instantiate(itemBoxPrefab);
             itemBoxGO.GetComponent<ItemBoxInfo>().SetItemInfo(itemInfo[i]);
-            itemBoxGO.transform.SetParent(parentGO.transform, true);
+            itemBoxGO.transform.SetParent(content.transform, true);
 
         }
 

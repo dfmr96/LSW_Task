@@ -12,19 +12,21 @@ public class ItemBoxInfo : MonoBehaviour
     [SerializeField] GameObject itemInstance;
     [SerializeField] GameObject inventoryContent;
     [SerializeField] BuyItemsScroll sellerPool;
-
+    [SerializeField] GameObject buyScreen, sellScreen;
  
 
     private void Start()
     {
         inventoryContent = FindObjectOfType<InventoryContent>().gameObject;
         sellerPool = FindObjectOfType<BuyItemsScroll>();
+        buyScreen = FindObjectOfType<NPCDialog>().buyScreen;
+        sellScreen = FindObjectOfType<NPCDialog>().sellScreen;
         EventTrigger trigger = GetComponent<EventTrigger>();
         EventTrigger.Entry entry = new()
         {
             eventID = EventTriggerType.Submit
         };
-        entry.callback.AddListener((functionIWant) => { AddItemToInventoryList(); });
+        entry.callback.AddListener((functionIWant) => { CopyOrEraseItem(); });
         trigger.triggers.Add(entry);
     }
     public void SetItemInfo(ItemInfo itemInfo)
@@ -34,16 +36,22 @@ public class ItemBoxInfo : MonoBehaviour
         itemPrice.text = itemInfo.itemPrice.ToString();
     }
     
+    public void CopyOrEraseItem()
+    {
+        if (buyScreen.activeInHierarchy)
+        {
+            inventoryContent.GetComponent<InventoryContent>().inventoryPool.Add(this.itemInfo);
+        } else
+        {
+            inventoryContent.GetComponent<InventoryContent>().inventoryPool.Remove(this.itemInfo);
+            sellScreen.GetComponent<SellitemsScroll>().CreateContent();
+        }
+    }
     public void AddItemToInventoryList()
     {
-        inventoryContent.GetComponent<InventoryContent>().inventoryPool.Add(this.itemInfo);
     }
-  /*  public void SetInventoryItemInfo()
+    public void RemoveItemFromInventoryList()
     {
-        GameObject _newItem = Instantiate(itemInstance, parentGO.transform);
-        _newItem.GetComponent<InventoryItemInfo>().itemName.text = this.itemName.text;
-        Debug.Log(_newItem.GetComponent<InventoryItemInfo>().itemName.text);
-        _newItem.GetComponent<InventoryItemInfo>().itemPrice.text = this.itemPrice.text;
     }
-  */
+
 }

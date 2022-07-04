@@ -12,7 +12,7 @@ public class NPCDialog : MonoBehaviour
     [SerializeField] Transform dialogCanvas;
     GameObject buyButtonGO, sellButtonGO;
     [SerializeField] float ButtonOffsetX = 50f, ButtonOffsetY = 50f;
-    [SerializeField] GameObject buyScreen;
+    public GameObject buyScreen,sellScreen;
     // Start is called before the first frame update
     void Start()
     {
@@ -66,13 +66,13 @@ public class NPCDialog : MonoBehaviour
     }
     public void ShowTradeButtons()
     {
-        buyButtonGO = Instantiate(buttonPrefab, dialogCanvas, true);
         var canvasRect = dialogCanvas.GetComponent<RectTransform>().rect;
+        
+        buyButtonGO = Instantiate(buttonPrefab, dialogCanvas, true);
         buyButtonGO.GetComponentInChildren<TMP_Text>().text = "Buy";
         buyButtonGO.transform.localPosition = new Vector2(canvasRect.xMax - ButtonOffsetX, canvasRect.yMax - ButtonOffsetY);
 
 
-        //buyButtonGO.AddComponent<EventTrigger>();
         EventTrigger triggerBuybutton = buyButtonGO.GetComponent<EventTrigger>();
         EventTrigger.Entry entryBuyButton = new()
         {
@@ -85,6 +85,14 @@ public class NPCDialog : MonoBehaviour
         sellButtonGO = Instantiate(buttonPrefab, dialogCanvas, true);
         sellButtonGO.GetComponentInChildren<TMP_Text>().text = "Sell";
         sellButtonGO.transform.localPosition = new Vector2(canvasRect.xMax - ButtonOffsetX, canvasRect.yMin + ButtonOffsetY);
+
+        EventTrigger triggerSellbutton = sellButtonGO.GetComponent<EventTrigger>();
+        EventTrigger.Entry entrySellButton = new()
+        {
+            eventID = EventTriggerType.Submit
+        };
+        entrySellButton.callback.AddListener((functionIWant) => { SellButtonTaskOnClick(); });
+        triggerSellbutton.triggers.Add(entrySellButton);
     }
 
 
@@ -109,7 +117,10 @@ public class NPCDialog : MonoBehaviour
 
     public void SellButtonTaskOnClick()
     {
+        sellScreen.SetActive(true);
+        sellScreen.GetComponent<SellitemsScroll>().CreateContent();
         manager.HideDialog();
+        playerController.playerTalking = true;
         DestroyButtons();
     }
 
@@ -118,10 +129,5 @@ public class NPCDialog : MonoBehaviour
     {
         Destroy(buyButtonGO);
         Destroy(sellButtonGO);
-    }
-
-    public void BuyItem()
-    {
-
     }
 }
