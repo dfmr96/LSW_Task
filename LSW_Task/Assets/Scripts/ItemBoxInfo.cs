@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
 public class ItemBoxInfo : MonoBehaviour
 {
     ItemInfo itemInfo;
     public TMP_Text itemName, itemPrice;
+    public Sprite sprite;
+    public Image image;
     [SerializeField] GameObject itemInstance;
     [SerializeField] GameObject inventoryContent;
     [SerializeField] BuyItemsScroll sellerPool;
@@ -34,6 +37,8 @@ public class ItemBoxInfo : MonoBehaviour
         this.itemInfo = itemInfo;
         itemName.text = itemInfo.itemName;
         itemPrice.text = itemInfo.itemPrice.ToString();
+        sprite = itemInfo.sprite;
+        image.sprite = sprite;
     }
     
     public void CopyOrEraseItem()
