@@ -12,47 +12,38 @@ public class NPCDialog : MonoBehaviour
     [SerializeField] Transform dialogCanvas;
     GameObject buyButtonGO, sellButtonGO;
     [SerializeField] float ButtonOffsetX = 50f, ButtonOffsetY = 50f;
-    public GameObject buyScreen,sellScreen;
-    // Start is called before the first frame update
+    public GameObject buyScreen, sellScreen;
+    public GameObject NPCnotifier;
+    public GameObject interact;
     void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (!playerController.playerTalking)
         {
-
             if (playerInTheZone && Input.GetKeyDown(KeyCode.F)) //If player is inside Dialog Trigger and press button, show Dialog
             {
-                {
-                    manager.ShowDialog(dialog);//Dialog lines in inspector will be shown
-                    ShowTradeButtons();
-                    // Debug.Log("Dialogo Activado");
-                }
-                /*
-                if (gameObject.GetComponentInParent<NPCMovement>() != null)
-                {
-                    gameObject.GetComponentInParent<NPCMovement>().isTalking = true;
-                }
-                */
+                interact.SetActive(false);
+                manager.ShowDialog(dialog);//Dialog lines in inspector will be shown
+                ShowTradeButtons();
             }
         }
         if (playerController.playerTalking && Input.GetKeyDown(KeyCode.Escape))
         {
             manager.HideDialog();
+            interact.SetActive(true);
+
         }
-
-
     }
-
     private void OnTriggerEnter2D(Collider2D collision) //PLayer can trigger dialog
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             playerInTheZone = true;
+            NPCnotifier.SetActive(true);
+            interact.SetActive(true);
         }
     }
 
@@ -61,13 +52,14 @@ public class NPCDialog : MonoBehaviour
         if (collision.gameObject.CompareTag("Player")) //Player exit trigger zone
         {
             playerInTheZone = false;
-            manager.HideDialog();
+            NPCnotifier.SetActive(false);
+            interact.SetActive(false);
         }
     }
     public void ShowTradeButtons()
     {
         var canvasRect = dialogCanvas.GetComponent<RectTransform>().rect;
-        
+
         buyButtonGO = Instantiate(buttonPrefab, dialogCanvas, true);
         buyButtonGO.GetComponentInChildren<TMP_Text>().text = "Buy";
         buyButtonGO.transform.localPosition = new Vector2(canvasRect.xMax - ButtonOffsetX, canvasRect.yMax - ButtonOffsetY);
@@ -94,9 +86,6 @@ public class NPCDialog : MonoBehaviour
         entrySellButton.callback.AddListener((functionIWant) => { SellButtonTaskOnClick(); });
         triggerSellbutton.triggers.Add(entrySellButton);
     }
-
-
-
     public void BuyButtonTaskOnClick()
     {
         buyScreen.SetActive(true);
@@ -107,14 +96,11 @@ public class NPCDialog : MonoBehaviour
         else
         {
             EventSystem.current.SetSelectedGameObject(buyScreen.GetComponent<BuyItemsScroll>().firstChild);
-
         }
         manager.HideDialog();
         playerController.playerTalking = true;
         DestroyButtons();
-
     }
-
     public void SellButtonTaskOnClick()
     {
         sellScreen.SetActive(true);
@@ -123,8 +109,6 @@ public class NPCDialog : MonoBehaviour
         playerController.playerTalking = true;
         DestroyButtons();
     }
-
-
     public void DestroyButtons()
     {
         Destroy(buyButtonGO);

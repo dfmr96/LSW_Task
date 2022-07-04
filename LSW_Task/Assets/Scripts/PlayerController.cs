@@ -1,7 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
-
-
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
@@ -11,14 +8,12 @@ public class PlayerController : MonoBehaviour
     public bool playerTalking;
     public GameObject inventoryScreen;
     public GameObject inventoryContent;
-    bool objectsCreated;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playerTalking = false;
-        objectsCreated = false;
     }
 
     // Update is called once per frame
@@ -46,29 +41,21 @@ public class PlayerController : MonoBehaviour
             ShowInventory();
         }
 
-        if(inventoryScreen.activeInHierarchy)
+        if (inventoryScreen.activeInHierarchy)
         {
             rb.velocity = Vector2.zero;
         }
-
-
     }
-
     public void ShowInventory()
     {
-
         if (inventoryScreen.activeInHierarchy == false)
         {
             inventoryScreen.SetActive(true);
             inventoryContent.GetComponent<InventoryContent>().CreateContent();
-            
         }
         else
         {
             inventoryScreen.SetActive(false);
         }
-
-
-
     }
 }

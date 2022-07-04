@@ -1,20 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class CurrencyManager : MonoBehaviour
 {
     public static CurrencyManager sharedInstance;
     [SerializeField] TMP_Text dollarsUI;
-    public int dollars  = 500;
+    public int dollars = 500;
 
     private void Start()
     {
         if (sharedInstance == null)
         {
             sharedInstance = this;
-        } else
+        }
+        else
         {
             Destroy(gameObject);
         }

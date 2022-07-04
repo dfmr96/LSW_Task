@@ -35,8 +35,6 @@ public class BuyItemsScroll : MonoBehaviour
         itemInfo[9] = ScriptableObject.CreateInstance<ItemInfo>().Init("Yellow Shirt", 5, sprite.sprite[9]);
         itemInfo[10] = ScriptableObject.CreateInstance<ItemInfo>().Init("Yellow Pants", 5, sprite.sprite[10]);
 
-
-
         for (int i = 0; i < itemInfo.Length; i++)
         {
             var itemBoxGO = Instantiate(itemBoxPrefab);

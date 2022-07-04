@@ -12,15 +12,12 @@ public class ItemBoxInfo : MonoBehaviour
     public Image image;
     [SerializeField] GameObject itemInstance;
     [SerializeField] GameObject inventoryContent;
-    [SerializeField] BuyItemsScroll sellerPool;
     [SerializeField] GameObject buyScreen, sellScreen, notEnoughtMoneyScreen;
     [SerializeField] GameObject UI;
-
 
     private void Start()
     {
         inventoryContent = FindObjectOfType<InventoryContent>().gameObject;
-        sellerPool = FindObjectOfType<BuyItemsScroll>();
         buyScreen = FindObjectOfType<NPCDialog>().buyScreen;
         sellScreen = FindObjectOfType<NPCDialog>().sellScreen;
         EventTrigger trigger = GetComponent<EventTrigger>();
@@ -39,7 +36,6 @@ public class ItemBoxInfo : MonoBehaviour
         sprite = itemInfo.sprite;
         image.sprite = sprite;
     }
-
     public void CopyOrEraseItem()
     {
         if (buyScreen.activeInHierarchy)
@@ -48,7 +44,8 @@ public class ItemBoxInfo : MonoBehaviour
             {
                 CurrencyManager.sharedInstance.dollars -= itemInfo.itemPrice;
                 inventoryContent.GetComponent<InventoryContent>().inventoryPool.Add(this.itemInfo);
-            } else
+            }
+            else
             {
                 UI = GameObject.FindGameObjectWithTag("UIScreen");
                 Instantiate(notEnoughtMoneyScreen, UI.transform);
@@ -58,6 +55,8 @@ public class ItemBoxInfo : MonoBehaviour
         {
             inventoryContent.GetComponent<InventoryContent>().inventoryPool.Remove(this.itemInfo);
             sellScreen.GetComponent<SellitemsScroll>().CreateContent();
+            CurrencyManager.sharedInstance.dollars += itemInfo.itemPrice;
+
         }
     }
 }
