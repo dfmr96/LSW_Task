@@ -1093,6 +1093,7 @@ MonoBehaviour:
   itemBoxPrefab: {fileID: 2007239515172369271, guid: 6fb71254daa933e49b5f5f5751f5f19c, type: 3}
   itemPrefab: []
   content: {fileID: 0}
+  npcInventory: {fileID: 0}
   itemInfo: []
   firstChild: {fileID: 0}
   objectsCreated: 0
@@ -48261,6 +48262,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 858930217}
+  - component: {fileID: 858930218}
   m_Layer: 0
   m_Name: BuyInventory
   m_TagString: Untagged
@@ -48283,6 +48285,20 @@ Transform:
   m_Father: {fileID: 266779814}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &858930218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858930216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b19e692c82d3a441a3ca4568fcb078e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInfo: []
+  sprite: {fileID: 236049149}
 --- !u!1 &960146869
 GameObject:
   m_ObjectHideFlags: 0
@@ -48545,6 +48561,7 @@ MonoBehaviour:
   itemBoxPrefab: {fileID: 2007239515172369271, guid: 6fb71254daa933e49b5f5f5751f5f19c, type: 3}
   itemPrefab: []
   content: {fileID: 1767682598}
+  npcInventory: {fileID: 858930218}
   itemInfo: []
   firstChild: {fileID: 0}
   objectsCreated: 0
@@ -48841,7 +48858,7 @@ Transform:
   - {fileID: 484915159}
   - {fileID: 1628652299}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1178475546
 BoxCollider2D:
@@ -50057,7 +50074,7 @@ Transform:
   - {fileID: 1368185528}
   - {fileID: 1795961052}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1496750977
 GameObject:
