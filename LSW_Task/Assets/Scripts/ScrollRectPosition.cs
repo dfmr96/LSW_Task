@@ -56,9 +56,4 @@ public class ScrollRectPosition : MonoBehaviour
         }
         lastSelected = selected;
     }
-
-    public void SelectFirstButton(GameObject firstSelectableButton)
-    {
-        EventSystem.current.SetSelectedGameObject(firstSelectableButton);
-    }
 }

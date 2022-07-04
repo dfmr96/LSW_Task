@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,12 +9,16 @@ public class PlayerController : MonoBehaviour
     private const string horizontal = "Horizontal", vertical = "Vertical";
     Vector2 movementDirection;
     public bool playerTalking;
+    public GameObject inventoryScreen;
+    public GameObject inventoryContent;
+    bool objectsCreated;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playerTalking = false;
+        objectsCreated = false;
     }
 
     // Update is called once per frame
@@ -34,6 +40,35 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = Vector2.zero; //if player dont use movement buttons, gameobject will stop
         }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ShowInventory();
+        }
+
+        if(inventoryScreen.activeInHierarchy)
+        {
+            rb.velocity = Vector2.zero;
+        }
+
+
+    }
+
+    public void ShowInventory()
+    {
+
+        if (inventoryScreen.activeInHierarchy == false)
+        {
+            inventoryScreen.SetActive(true);
+            inventoryContent.GetComponent<InventoryContent>().CreateContent();
+            
+        }
+        else
+        {
+            inventoryScreen.SetActive(false);
+        }
+
+
 
     }
 }

@@ -101,7 +101,6 @@ public class NPCDialog : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(buyScreen.GetComponent<BuyItemsScroll>().firstChild);
 
         }
-        //   Debug.Log("Metodo llamado");
         manager.HideDialog();
         playerController.playerTalking = true;
         DestroyButtons();
@@ -119,5 +118,10 @@ public class NPCDialog : MonoBehaviour
     {
         Destroy(buyButtonGO);
         Destroy(sellButtonGO);
+    }
+
+    public void BuyItem()
+    {
+
     }
 }
